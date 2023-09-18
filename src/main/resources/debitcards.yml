@@ -1,0 +1,112 @@
+openapi: 3.0.0
+info:
+  title: DebitCards
+  description:
+    This application allows you to create and get information about creditcards.
+  version: 1.0.0
+servers:
+  - url: https://localhost:8086
+tags:
+  - name: debitCards
+    description: Everything about your debit cards.
+paths:
+  /debitcard:
+    post:
+      tags:
+        - debitCards
+      summary: Allows you to register a debitcard.
+      description: Allows you to register a debit card of a person or a company
+      operationId: createDebitCard
+      requestBody:
+        required: true
+        description: Allows to register a debitcard
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DebitCardRequest'
+      responses:
+        '201':
+          description: Credit registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DebitCard'
+        '400':
+          description: Credit request rejected
+
+    patch:
+      tags:
+        - debitCards
+      summary: Allows you to add secondary accounts.
+      description: allows you to add secondary accounts.
+      operationId: addSecondaryAccounts
+      requestBody:
+        required: true
+        description: Allows you to add secondary accounts.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecondaryAccountRequest'
+      responses:
+        '200':
+          description: The credit was paid correctly
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DebitCard'
+        '400':
+          description: Invalid Request
+
+
+  /debitcard/{debitCardNumber}:
+    get:
+      tags:
+        - debitCards
+      summary: Allows you to obtain information about your credit card.
+      description: Allows you to obtain information about your credit card.
+      operationId: getDebitCard
+      parameters:
+        - name: debitCardNumber
+          in: path
+          description: Debit card number
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Information about your debit card
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DebitCard'
+
+
+
+components:
+  schemas:
+    DebitCardRequest:
+      required:
+        - mainAccount
+        - clientDocument
+      type: object
+      properties:
+        mainAccount:
+          type: string
+        clientDocument:
+          type: string
+
+    DebitCard:
+      type: object
+      properties:
+        message:
+          type: string
+
+    SecondaryAccountRequest:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        clientDocument:
+          type: string
+        debitCardNumber:
+          type: string
