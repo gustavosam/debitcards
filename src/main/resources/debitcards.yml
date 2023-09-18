@@ -58,7 +58,7 @@ paths:
           description: Invalid Request
 
 
-  /debitcard/{debitCardNumber}:
+  /debitcard/{debitCardNumber}/client/{clientDocument}:
     get:
       tags:
         - debitCards
@@ -69,6 +69,12 @@ paths:
         - name: debitCardNumber
           in: path
           description: Debit card number
+          required: true
+          schema:
+            type: string
+        - name: clientDocument
+          in: path
+          description: client document
           required: true
           schema:
             type: string

@@ -127,4 +127,13 @@ public class DebitCardDelegateImpl implements DebitcardApiDelegate {
       });
     });
   }
+
+  @Override
+  public Mono<ResponseEntity<DebitCard>> getDebitCard(String debitCardNumber,
+                                                      String clientDocument,
+                                                      ServerWebExchange exchange){
+
+    return debitCardService.getDebitCard(debitCardNumber, clientDocument).map(ResponseEntity::ok);
+
+  }
 }
