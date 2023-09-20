@@ -13,7 +13,7 @@ public class AccountsWebClient {
   @Autowired
   private WebClient.Builder webClientBuilder;
 
-  @CircuitBreaker(name = "myCircuitBreaker", fallbackMethod = "fallbackMethod")
+  @CircuitBreaker(name = "circuitBreakerAccount", fallbackMethod = "fallbackMethod")
   public Flux<AccountDto> getAccountsByClient(String document){
     return webClientBuilder.build()
             .get()
